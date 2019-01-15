@@ -1,0 +1,139 @@
+* {
+  color: #80868b;
+  font-family: "Roboto", sans-serif;
+}
+
+#add-note {
+  position: relative;
+  background-color: white;
+  width: 594px;
+  height: 134px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 10px;
+  border: 1px solid #dadce0;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+#title {
+  padding: 10px 15px 10px 15px;
+}
+
+.text:focus {
+  color: black;
+}
+
+.text {
+  width: 534px;
+  outline: none;
+  border: none;
+}
+
+#list-item {
+  width: 500px !important;
+}
+
+#list {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  padding: 0px 15px 0px 50px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0px;
+  width: 594px;
+}
+
+#plus {
+  position: relative;
+  left: 80%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#column1 {
+  display: inline-block;
+  width: 8%;
+  height: 30px;
+  position: relative;
+  margin-right: 10px;
+}
+
+#column2 {
+  display: inline-block;
+  width: 85%;
+  height: 30px;
+}
+
+#column1:focus {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+#column2:focus {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.grid {
+  position: relative;
+  top: 250px;
+  left: 50%;
+  transform: translate(-50%);
+  background: white;
+  max-width: 1200px;
+}
+
+/* clear fix */
+.grid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.grid-item {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: #C09;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.grid-item--width2 {
+  width: 200px;
+}
+
+.grid-item--height2 {
+  height: 200px;
+}
+
+.grid-item:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  cursor: move;
+}
+
+.grid-item.ui-draggable-dragging,
+.grid-item.is-positioning-post-drag {
+  background: #C90;
+  z-index: 2;
+}
+
+.packery-drop-placeholder {
+  outline: 3px dashed rgba(0, 0, 0, 0.5);
+  outline-offset: -6px;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+}
+
+/*# sourceMappingURL=style.css.map */

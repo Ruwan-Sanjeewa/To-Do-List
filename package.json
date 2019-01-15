@@ -1,0 +1,14 @@
+{
+  "name": "google-keep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   "start": "browser-sync start --server --files ."
+  },
+  "author": "ruwan sanjeewa <ruwansanjeewa20@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.26.3"
+  }
+}

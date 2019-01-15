@@ -62,22 +62,6 @@
   margin-right: 10px;
 }
 
-#column2 {
-  display: inline-block;
-  width: 85%;
-  height: 30px;
-}
-
-#column1:focus {
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
-}
-
-#column2:focus {
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
-}
-
 * {
   box-sizing: border-box;
 }

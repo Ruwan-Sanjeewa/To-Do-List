@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
         crossorigin="anonymous">
 
@@ -22,30 +22,58 @@
 <body>
     <div id="add-note">
         <div id="title">
-            <input type="text" placeholder="Text" class="text" style="margin-left:5px;" size="35"><i class="fas fa-thumbtack"></i>
+            <input type="text" placeholder="Title" class="text" style="margin-left:5px;" size="35" id="title-text"><i
+                class="fas fa-thumbtack" data-toggle="tooltip" data-placement="bottom" title="Pin note"></i>
         </div>
         <div id="list">
-                <i class="fas fa-plus"></i> <input type="text" placeholder="List item" class="text" id="list-item">
+            <i class="fas fa-plus" style="margin-right:5px;"></i> <input type="text" placeholder="List item" class="text"
+                id="list-item">
         </div>
         <div id="footer">
-                <i class="far fa-bell" style="margin-right: 30px;margin-left: 20px"></i>
-                <i class="fas fa-user-plus" style="margin-right: 30px;"></i>
-                <i class="fas fa-palette" style="margin-right: 30px;"></i>
-                <i class="far fa-image" style="margin-right: 30px;"></i>
-                <i class="fas fa-file-download" style="margin-right: 30px;"></i>
-                <i class="fas fa-ellipsis-v" style="margin-right: 30px;"></i>
-                <i class="fas fa-undo-alt" style="margin-right: 30px;"></i>
-                <i class="fas fa-redo" style="margin-right: 30px;"></i>
-                
+
+            <i class="far fa-bell" style="margin-right: 30px;margin-left: 20px;cursor: pointer;" data-toggle="tooltip"
+                data-placement="bottom" title="Remind me"></i>
+            <i class="fas fa-user-plus" style="margin-right: 30px;cursor: pointer;" data-toggle="tooltip"
+                data-placement="bottom" title="collaborator"></i>
+            <i class="fas fa-palette" style="margin-right: 30px;cursor: pointer;display: inline-block;" id="color"
+                data-toggle="tooltip" data-placement="bottom" title="Change color">
+                <div id="color-pallete">
+                    <div id="color1"></div>
+                    <div id="color2"></div>
+                    <div id="color3"></div>
+                    <div id="color4"></div>
+                    <div id="color5"></div>
+                    <div id="color6"></div>
+                    <div id="color7"></div>
+                    <div id="color8"></div>
+                    <div id="color9"></div>
+                    <div id="color10"></div>
+                    <div id="color11"></div>
+                    <div id="color12"></div>
+                </div>
+
+            </i>
+            <i class="far fa-image" style="margin-right: 30px;cursor: pointer;" data-toggle="tooltip" data-placement="bottom"
+                title="Add image"></i>
+            <i class="fas fa-file-download" style="margin-right: 30px;cursor: pointer;" data-toggle="tooltip"
+                data-placement="bottom" title="Archive"></i>
+            <i class="fas fa-ellipsis-v" style="margin-right: 30px;cursor: pointer;" data-toggle="tooltip"
+                data-placement="bottom" title="More"></i>
+            <i class="fas fa-undo-alt" style="margin-right: 30px;cursor:not-allowed;" data-toggle="tooltip"
+                data-placement="bottom" title="Undo"></i>
+            <i class="fas fa-redo" style="margin-right: 30px;cursor:not-allowed;" data-toggle="tooltip" data-placement="bottom"
+                title="Redo"></i>
+            <button type="button" class="btn btn-light" id="close">Close</button>
+
         </div>
 
     </div>
 
 
 
-    <div class="grid">
-        <div class="grid-item grid-item--width2"></div>
-        <div class="grid-item grid-item--height2"></div>
+    <div class="grid" style="position: relative;background-color: yellow; height: 500px;width: 500px;">
+        <!-- <div class="grid-item grid-item--width2"></div> -->
+        <!-- <div class="grid-item grid-item--height2"></div>
         <div class="grid-item"></div>
         <div class="grid-item"></div>
         <div class="grid-item grid-item--width2 grid-item--height2"></div>
@@ -61,7 +89,7 @@
         <div class="grid-item"></div>
         <div class="grid-item grid-item--width2"></div>
         <div class="grid-item grid-item--height2"></div>
-        <div class="grid-item"></div>
+        <div class="grid-item"></div> -->
     </div>
 
 
@@ -73,55 +101,256 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/packery.pkgd.min.js"></script>
+
     <script>
 
-        var $grid = $('.grid').packery({
-            itemSelector: '.grid-item',
-
-            columnWidth: 100
-        });
-
-
-        var $items = $grid.find('.grid-item').draggable();
-
-        $grid.packery('bindUIDraggableEvents', $items);
-
+      
 
 
         $(window).on("load", function () {
-            $("#Input1").hide();
-            $("#Input3").hide();
-            $("#Input4").hide();
-            $("#icon").hide();
-            $("#check").hide();
+            $("#color-pallete").hide();
+            $("#list").hide();
+            $("#footer").hide();
+            $("#add-note").css("height", '46px');
+            $("#title-text").attr("placeholder", 'Take a note...');
 
-            $("#Input2").focus();
+        });
+
+        $("#title-text").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            e.stopPropagation();
+
+        });
+
+
+        $("body").click(function () {
+            $("#list").hide();
+            $("#footer").hide();
+            $("#add-note").css("height", '46px');
+            $("#title-text").attr("placeholder", 'Take a note...');
+        });
+
+        $("#list-item,#footer").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            e.stopPropagation();
         });
 
 
 
-
-
-
-        $("#Input2").click(function () {
-            $("#Input1").show();
-            $("#Input3").show();
-
-            $("#Input2").click(function () {
-
-                $("#Input2").hide();
-                $("#Input4").show();
-
-                $("#Input4").keypress(function () {
-                    $("#icon").show();
-                    $("#check").show();
-                    $("#plus").hide();
-
-                });
-            });
-
+        $("#color").mouseover(function () {
+            $("#color-pallete").show();
 
         });
+
+        $("#color1").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'white');
+            $("#list").css("border-color", '#ddd');
+            $("#close").css("border-color", 'white');
+            $("#close:hover").css("background-color", 'transparent');
+
+            e.stopPropagation();
+        });
+
+        $("#color2").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(242, 139, 130)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color3").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(251, 188, 4)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+        $("#color4").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(255, 244, 117)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+        $("#color5").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(204, 255, 144)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color6").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(167, 255, 235)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color7").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(203, 240, 248)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color8").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(174, 203, 250)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color9").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(215, 174, 251)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color10").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(253, 207, 232)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color11").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(230, 201, 168)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+
+
+            e.stopPropagation();
+        });
+
+
+        $("#color12").click(function (e) {
+            $("#list").show();
+            $("#footer").show();
+            $("#add-note").css("height", '134px');
+            $("#title-text").attr("placeholder", 'Title');
+
+            $("#add-note,#title-text,#close,#list-item").css("background-color", 'rgb(232, 234, 237)');
+            $("#list").css("border-color", 'rgb(237, 114, 104)');
+            $("#close").css("border-color", 'transparent');
+            e.stopPropagation();
+        });
+
+
+        // $("#color").mouseout(function () {
+        //     $("#color-pallete").fadeOut(300);
+
+        //     setTimeout(function () {
+        //         $("#color-pallete").hide();
+        //     }, 400);
+
+        //     });
+
+
+        $("#list").keyup(function () {
+
+
+            $("#list").before("<div id='lists'><input type='checkbox'><input type='text' placeholder='List item' class='text' id='list-items'></div>");
+            $("#list-items").focus();
+            $("#list").css("border", 'none');
+        });
+
+       
+        $("#close").click(function () {
+            var $items = $("<div id='draggable' class='grid-item grid-item--width2' display='inline'>ruwan</div>");
+            $(".grid").append( $items )
+            .packery( 'appended', $items );
+            $(".grid").find('.grid-item').draggable();
+            $(".grid").packery('bindUIDraggableEvents',$items1);
+        });
+
+
 
     </script>
 

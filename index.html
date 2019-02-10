@@ -35,21 +35,21 @@
                 data-placement="bottom" title="Remind me"></i>
             <i class="fas fa-user-plus" style="margin-right: 30px;cursor: pointer;" data-toggle="tooltip"
                 data-placement="bottom" title="collaborator"></i>
-            <i class="fas fa-palette" style="margin-right: 30px;cursor: pointer;display: inline-block;" id="color"
-                data-toggle="tooltip" data-placement="bottom" title="Change color">
-                <div id="color-pallete">
-                    <div id="color1"></div>
-                    <div id="color2"></div>
-                    <div id="color3"></div>
-                    <div id="color4"></div>
-                    <div id="color5"></div>
-                    <div id="color6"></div>
-                    <div id="color7"></div>
-                    <div id="color8"></div>
-                    <div id="color9"></div>
-                    <div id="color10"></div>
-                    <div id="color11"></div>
-                    <div id="color12"></div>
+            <i class="fas fa-palette" style="margin-right: 30px;cursor: pointer;" id="color" data-toggle="tooltip"
+                data-placement="bottom" title="Change color">
+                <div id="color-pallete" style="display:inline-block;">
+                    <div id="color1" class="color-circle"></div>
+                    <div id="color2" class="color-circle"></div>
+                    <div id="color3" class="color-circle"></div>
+                    <div id="color4" class="color-circle"></div>
+                    <div id="color5" class="color-circle"></div>
+                    <div id="color6" class="color-circle"></div>
+                    <div id="color7" class="color-circle"></div>
+                    <div id="color8" class="color-circle"></div>
+                    <div id="color9" class="color-circle"></div>
+                    <div id="color10" class="color-circle"></div>
+                    <div id="color11" class="color-circle"></div>
+                    <div id="color12" class="color-circle"></div>
                 </div>
 
             </i>
@@ -71,7 +71,7 @@
 
 
 
-    <div class="grid" style="position: relative;background-color: yellow; height: 500px;width: 500px;">
+    <!-- <div id="divMain" class="grid" style="background-color: yellow; height: 500px;width: 500px;"> -->
         <!-- <div class="grid-item grid-item--width2"></div> -->
         <!-- <div class="grid-item grid-item--height2"></div>
         <div class="grid-item"></div>
@@ -90,28 +90,28 @@
         <div class="grid-item grid-item--width2"></div>
         <div class="grid-item grid-item--height2"></div>
         <div class="grid-item"></div> -->
-    </div>
+    <!-- </div> -->
 
 
 
 
 
 
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
     <script src="js/packery.pkgd.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
     <script>
 
-      
-
+        var height = 134;
+        var i = 0;
 
         $(window).on("load", function () {
             $("#color-pallete").hide();
             $("#list").hide();
             $("#footer").hide();
-            $("#add-note").css("height", '46px');
+            // $("#add-note").css("height", '46px');
             $("#title-text").attr("placeholder", 'Take a note...');
 
         });
@@ -119,7 +119,7 @@
         $("#title-text").click(function (e) {
             $("#list").show();
             $("#footer").show();
-            $("#add-note").css("height", '134px');
+            $("#add-note").css("height", height + 'px');
             $("#title-text").attr("placeholder", 'Title');
 
             e.stopPropagation();
@@ -127,17 +127,18 @@
         });
 
 
-        $("body").click(function () {
-            $("#list").hide();
-            $("#footer").hide();
-            $("#add-note").css("height", '46px');
-            $("#title-text").attr("placeholder", 'Take a note...');
-        });
+        // $("body").click(function () {
+        //     $("#list").hide();
+        //     $("#footer").hide();
+        //     // $("#add-note").css("height", '46px');
+        //     $("#title-text").attr("placeholder", 'Take a note...');
+
+        // });
 
         $("#list-item,#footer").click(function (e) {
             $("#list").show();
             $("#footer").show();
-            $("#add-note").css("height", '134px');
+            // $("#add-note").css("height", '134px');
             e.stopPropagation();
         });
 
@@ -322,33 +323,77 @@
             e.stopPropagation();
         });
 
-
-        // $("#color").mouseout(function () {
-        //     $("#color-pallete").fadeOut(300);
-
-        //     setTimeout(function () {
-        //         $("#color-pallete").hide();
-        //     }, 400);
-
-        //     });
+        // $(".color-circle").mouseover(function () {
+        //    $("#color-pallete").show();
+        // });
 
 
-        $("#list").keyup(function () {
+        $("#color-pallete").mouseout(function () {
+            $("#color-pallete").fadeOut(300);
 
+            setTimeout(function () {
+                $("#color-pallete").hide();
+            }, 400);
 
-            $("#list").before("<div id='lists'><input type='checkbox'><input type='text' placeholder='List item' class='text' id='list-items'></div>");
-            $("#list-items").focus();
-            $("#list").css("border", 'none');
         });
 
-       
+
+
+        $("#list-item").keyup(function () {
+            var text = $("#list-item").val();
+            $("#list").before("<div id='new-items'></div>")
+            $("#new-items").append(" <div id='new-list'><input type='checkbox' style='margin-right:10px;'><input type='text' placeholder='List item' class='text'  id=" + i + " style='width:90%;color:black;'></div>");
+            var list_height = $("#list").height();
+            height += list_height;
+            $("#add-note").css("height", height + 'px');
+
+            $("#" + i).focus();
+            $("#" + i).val(text);
+            $("#list-item").val("");
+            // $("#list").css("border", '10px solid red');
+            i++;
+            $("#" + i).click(function (e) {
+                $("#list").show();
+                $("#footer").show();
+
+                e.stopPropagation();
+            });
+
+
+
+
+
+
+        });
+
+
         $("#close").click(function () {
-            var $items = $("<div id='draggable' class='grid-item grid-item--width2' display='inline'>ruwan</div>");
-            $(".grid").append( $items )
-            .packery( 'appended', $items );
-            $(".grid").find('.grid-item').draggable();
-            $(".grid").packery('bindUIDraggableEvents',$items1);
+            // console.log(text);
+
+
+            var $items = $("<div class='grid-item grid-item--width2 grid-item--height2'></div>");
+
+            $("#divMain").append($items).packery('appended', $items);
+
+
+
+
+
+            // make all items draggable
+
+            var $items1 = $("#divMain").find('.grid-item').draggable();
+
+            // bind drag events to Packery
+
+            $("#divMain").packery('bindUIDraggableEvents', $items1);
+
+         
+
+
+
         });
+
+
 
 
 
